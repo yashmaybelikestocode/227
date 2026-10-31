@@ -1,0 +1,14 @@
+[
+  {
+    "idea": "Use an outside retry library",
+    "reason": "It adds a dependency for about 20 lines of code"
+  },
+  {
+    "idea": "Add random jitter right away",
+    "reason": "Better to wait until requests cluster in real use"
+  },
+  {
+    "idea": "Keep the fixed one-second wait",
+    "reason": "A fixed wait makes every client retry at the same moment"
+  }
+]
