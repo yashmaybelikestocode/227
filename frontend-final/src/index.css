@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ivory: #FBFAF0;
+  --color-white: #FFFFFF;
+  --color-surface: #FFFFFA;
+  --color-mint: #D6F0E7;
+  --color-mint-soft: #EAF7F1;
+  --color-mint-deep: #A8DCC8;
+  --color-ink: #14302A;
+  --color-accent: #1F5E4E;
+  --color-muted: #4F6B63;
+  --color-line: #D9E3D8;
+  --color-brick: #A8432F;
+  --color-amber: #F0D8A0;
+  --color-amber-text: #5A4310;
+  --color-neutral: #E4EAE5;
+  --color-neutral-text: #4F6B63;
+}
+
+body {
+  margin: 0;
+  background-color: #FBFAF0;
+  color: #14302A;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  color: #14302A;
+}
+
+/* Global focus visible ring */
+:focus-visible {
+  outline: 2px solid #1F5E4E;
+  outline-offset: 2px;
+}
+
+/* Evidence citation highlight */
+.evidence-highlight {
+  background-color: rgba(168, 220, 200, 0.8);
+  border-left: 3px solid #1F5E4E;
+  color: #14302A;
+  padding: 2px 4px;
+}
+
+/* Print Styles */
+@media print {
+  aside,
+  header,
+  nav,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .card, div {
+    border-color: #CCCCCC !important;
+    background-color: #FFFFFF !important;
+    box-shadow: none !important;
+  }
+}
