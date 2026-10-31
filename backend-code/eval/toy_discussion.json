@@ -1,0 +1,41 @@
+{
+  "title": "Toy discussion (invented, not a real PEP)",
+  "url": "https://example.invalid/toy",
+  "posts": [
+    {
+      "id": "1",
+      "author": "ana",
+      "date": "2026-02-01T09:00:00Z",
+      "url": "https://example.invalid/toy/1",
+      "text": "I propose we add a new keyword for async context managers. How about reusing the existing with keyword instead?"
+    },
+    {
+      "id": "2",
+      "author": "ben",
+      "date": "2026-02-01T10:00:00Z",
+      "url": "https://example.invalid/toy/2",
+      "text": "Reusing the with keyword is not worth it because it would break existing parsers. I am against it."
+    },
+    {
+      "id": "3",
+      "author": "ana",
+      "date": "2026-02-01T11:00:00Z",
+      "url": "https://example.invalid/toy/3",
+      "text": "Fair point, I am dropping that idea."
+    },
+    {
+      "id": "4",
+      "author": "cho",
+      "date": "2026-02-02T09:00:00Z",
+      "url": "https://example.invalid/toy/4",
+      "text": "We should postpone the syntax change for now and revisit it later."
+    },
+    {
+      "id": "5",
+      "author": "ben",
+      "date": "2026-02-02T10:00:00Z",
+      "url": "https://example.invalid/toy/5",
+      "text": "We should add the new keyword. LGTM, approved."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.cypher/
+.env
+.env.*
+!.env.example
+*.sqlite
+node_modules/
+dist/
+.DS_Store

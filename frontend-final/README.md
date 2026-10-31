@@ -49,18 +49,57 @@ npm run build
 
 ---
 
-## Switching From Mock Data to Real Backend
+## Running With the Real Backend
 
-All backend interactions are abstracted behind a single interface in [`src/api.ts`](file:///Users/yash/frontend-final/src/api.ts).
+By default the app uses the bundled sample data (`VITE_USE_MOCK=true`), so `npm run dev`, `npm test`
+and `npm run build` work fully offline. To use the Cypher Python backend in `backend-code/` (which runs
+Gemma 4, `gemma4:e2b`, locally through Ollama), use three terminals from the repository root:
 
-To switch to a live Python backend running on `/api/*`:
+```bash
+# Terminal 1: the local model server
+ollama serve
 
-1. Open [`src/api.ts`](file:///Users/yash/frontend-final/src/api.ts).
-2. Set the `USE_MOCK` boolean flag to `false`:
-   ```ts
-   export const USE_MOCK = false;
-   ```
-3. When `USE_MOCK = false`, all async functions make standard `fetch('/api/...')` calls against the REST endpoints. When `USE_MOCK = true`, the application serves realistic mock data with simulated 300–600ms network latency (0ms in test environments).
+# Terminal 2: the Cypher backend on http://127.0.0.1:8000 (no install needed)
+cd backend-code && PYTHONPATH=src python3 -m cypher.cli serve
+
+# Terminal 3: this frontend, talking to the backend
+cd frontend-final && VITE_USE_MOCK=false npm run dev
+```
+
+Then open http://localhost:5173 and press **Try a sample project**.
+
+How it works:
+
+- All backend calls live in [`src/api.ts`](src/api.ts). They use relative `/api/...` URLs; the Vite dev
+  server proxies `/api` to `http://127.0.0.1:8000` (see [`vite.config.ts`](vite.config.ts)).
+- `VITE_USE_MOCK` (see [`.env.example`](.env.example)): anything other than `false` uses sample data and
+  makes no network calls. With `false`, every function calls the backend.
+- Parts the backend has not built yet answer HTTP 404 or 501 (files, person details, split, undo-split).
+  Only that one function then uses sample data and logs `using sample data for <function>` once in the
+  browser console. Any other failure (backend not running, HTTP 500, unreadable data) shows the page's
+  error state with a **Try again** button; it never silently shows sample data.
+- The chip next to the project name in the page header shows **Live data** when the last data call used
+  the backend and **Sample data** when it used sample data.
+- The Import page polls `GET /api/imports/{id}/summary` every second until the import is done, then
+  enables **See the decisions**. The first run on a project can take a few minutes because Gemma runs on
+  this computer; answers are cached, so later runs are quick.
+- The Blind test page seals Cypher's findings (`POST /api/analyses/{id}/blind/seal`) when it opens, and
+  opens the maintainers' list (`POST /api/analyses/{id}/blind/reveal`) only when you press
+  **Open the maintainers' list**.
+- Pages without an analysis id in their address (People, Code, Blind test) use the most recent analysis
+  started in this browser tab.
+
+| Function | Backend endpoint |
+| :--- | :--- |
+| `listRecentRepos` | `GET /api/repos` |
+| `startImport` | `POST /api/imports` (`{repo, question, range}`; sample projects send `{fixture}`) |
+| `getImportSummary` | `GET /api/imports/{id}/summary` |
+| `getAnalysis` | `GET /api/analyses/{id}` |
+| `sealFindings` | `POST /api/analyses/{id}/blind/seal` |
+| `getEvalResult` | `POST /api/analyses/{id}/blind/reveal` |
+| `listFiles`, `getFileView` | `GET /api/analyses/{id}/files[/path]` (not built yet, sample data) |
+| `getPerson` | `GET /api/analyses/{id}/people/{person}` (not built yet; uses the person from the backend's analysis) |
+| `splitPerson`, `undoSplit` | `POST /api/analyses/{id}/people/{person}/split` / `undo-split` (not built yet, sample data) |
 
 ---
 
@@ -73,9 +112,10 @@ frontend-final/
 ├── tailwind.config.js         # Color theme (ivory, mint, accent, brick, amber)
 ├── tsconfig.json              # TypeScript configuration
 ├── tsconfig.app.json          # App TypeScript build config
-├── vite.config.ts             # Vite build & Vitest test config
+├── vite.config.ts             # Vite build, /api dev proxy & Vitest test config
+├── .env.example               # VITE_USE_MOCK setting
 └── src/
-    ├── api.ts                 # API abstraction layer with USE_MOCK flag
+    ├── api.ts                 # API layer: backend calls or sample data (VITE_USE_MOCK)
     ├── index.css              # Typography, custom utilities, highlight styling
     ├── main.tsx               # Application entrypoint
     ├── App.tsx                # BrowserRouter and route definitions
@@ -84,6 +124,7 @@ frontend-final/
     │   └── CommentPanelContext.tsx # Context provider for original comment drawer
     ├── components/
     │   ├── Common.tsx         # Skeleton, EmptyState, ErrorState
+    │   ├── DataSourceChip.tsx # "Live data" / "Sample data" chip in the page header
     │   ├── DecisionRow.tsx    # Decision display row with status and chips
     │   ├── EffectPill.tsx     # Adjusted later / Undone later badges
     │   ├── GroupedStatements.tsx # Expandable duplicate statement group

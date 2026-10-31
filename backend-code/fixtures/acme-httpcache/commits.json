@@ -1,0 +1,465 @@
+[
+  {
+    "sha": "edfe2085c499d278c9df24a00bd93ccd92113aef",
+    "html_url": "https://github.com/acme/httpcache/commit/edfe2085c499d278c9df24a00bd93ccd92113aef",
+    "commit": {
+      "message": "Add fixed-wait retry",
+      "author": {
+        "name": "Marcus Trent",
+        "email": "marcus@acme.dev",
+        "date": "2026-01-09T07:50:00Z"
+      }
+    },
+    "author": {
+      "login": "mtrent"
+    }
+  },
+  {
+    "sha": "d09a1a5ac4d4bf3b9b2bd5a8647de2c5cb029dfa",
+    "html_url": "https://github.com/acme/httpcache/commit/d09a1a5ac4d4bf3b9b2bd5a8647de2c5cb029dfa",
+    "commit": {
+      "message": "Retry health checks too",
+      "author": {
+        "name": "Marcus Trent",
+        "email": "marcus@acme.dev",
+        "date": "2026-01-09T07:55:00Z"
+      }
+    },
+    "author": {
+      "login": "mtrent"
+    }
+  },
+  {
+    "sha": "e40781ba968476ad142f462053c5603d25b4488e",
+    "html_url": "https://github.com/acme/httpcache/commit/e40781ba968476ad142f462053c5603d25b4488e",
+    "commit": {
+      "message": "Document retry backoff configuration parameters in the project README",
+      "author": {
+        "name": "Marcus Trent",
+        "email": "marcus.t@gmail.com",
+        "date": "2026-01-15T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "mtrent"
+    }
+  },
+  {
+    "sha": "6b5a24f9a3097c517866b301ea65b05b514690fc",
+    "html_url": "https://github.com/acme/httpcache/commit/6b5a24f9a3097c517866b301ea65b05b514690fc",
+    "commit": {
+      "message": "Unit tests for the retry loop",
+      "author": {
+        "name": "Leo Kim",
+        "email": "leo.k@acme.dev",
+        "date": "2026-01-20T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "leok"
+    }
+  },
+  {
+    "sha": "81bb94047feb546e6ae83b78f11056ace3f82823",
+    "html_url": "https://github.com/acme/httpcache/commit/81bb94047feb546e6ae83b78f11056ace3f82823",
+    "commit": {
+      "message": "Fix typo in retry log message",
+      "author": {
+        "name": "Priya Nair",
+        "email": "priya@acme.dev",
+        "date": "2026-02-02T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "priya-n"
+    }
+  },
+  {
+    "sha": "d5081ba54bbd7644931cdbc28167d8fdcd3f1378",
+    "html_url": "https://github.com/acme/httpcache/commit/d5081ba54bbd7644931cdbc28167d8fdcd3f1378",
+    "commit": {
+      "message": "Add staging benchmark script",
+      "author": {
+        "name": "Sam Verma",
+        "email": "sam@acme.dev",
+        "date": "2026-02-10T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "samv"
+    }
+  },
+  {
+    "sha": "f7b5391299e2e270d312fcdfb22f7615f9951ea8",
+    "html_url": "https://github.com/acme/httpcache/commit/f7b5391299e2e270d312fcdfb22f7615f9951ea8",
+    "commit": {
+      "message": "Use exponential backoff for retries",
+      "author": {
+        "name": "Priya Nair",
+        "email": "priya.nair@old-lab.edu",
+        "date": "2026-03-13T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "priya-n"
+    }
+  },
+  {
+    "sha": "69b43d91e21930e2da34fba32b8959f321574653",
+    "html_url": "https://github.com/acme/httpcache/commit/69b43d91e21930e2da34fba32b8959f321574653",
+    "commit": {
+      "message": "Add backoff tests",
+      "author": {
+        "name": "Priya Nair",
+        "email": "priya@acme.dev",
+        "date": "2026-03-14T08:30:00Z"
+      }
+    },
+    "author": {
+      "login": "priya-n"
+    }
+  },
+  {
+    "sha": "11cd511e38ec09feb080c0c831ba29beb39d6382",
+    "html_url": "https://github.com/acme/httpcache/commit/11cd511e38ec09feb080c0c831ba29beb39d6382",
+    "commit": {
+      "message": "Update CI matrix",
+      "author": {
+        "name": "Elena Rossi",
+        "email": "elena@acme.dev",
+        "date": "2026-03-18T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "elenar"
+    }
+  },
+  {
+    "sha": "47b24e1158c0e5f40d49331ceee1c59d5947aa03",
+    "html_url": "https://github.com/acme/httpcache/commit/47b24e1158c0e5f40d49331ceee1c59d5947aa03",
+    "commit": {
+      "message": "Add retry count option draft",
+      "author": {
+        "name": "Leo Kim",
+        "email": "leo.k@acme.dev",
+        "date": "2026-03-25T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "leok"
+    }
+  },
+  {
+    "sha": "502242855f6fddeb55977d227ef8c85e4535cb12",
+    "html_url": "https://github.com/acme/httpcache/commit/502242855f6fddeb55977d227ef8c85e4535cb12",
+    "commit": {
+      "message": "Earlier implementation was located at src/http_retry.py before moving to new module structure.",
+      "author": {
+        "name": "Priya Nair",
+        "email": "priya.nair@old-lab.edu",
+        "date": "2026-04-03T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "priya-n"
+    }
+  },
+  {
+    "sha": "0ce34cd6fe615fff8451161cfd9faa2db3f12b02",
+    "html_url": "https://github.com/acme/httpcache/commit/0ce34cd6fe615fff8451161cfd9faa2db3f12b02",
+    "commit": {
+      "message": "Run benchmarks against the staging cluster",
+      "author": {
+        "name": "Sam Verma",
+        "email": "sam@acme.dev",
+        "date": "2026-04-14T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "samv"
+    }
+  },
+  {
+    "sha": "9c56d8d59eb13e5fec19d1189ea9971652d36b4f",
+    "html_url": "https://github.com/acme/httpcache/commit/9c56d8d59eb13e5fec19d1189ea9971652d36b4f",
+    "commit": {
+      "message": "Pin test dependencies",
+      "author": {
+        "name": "Elena Rossi",
+        "email": "4410+elenar@users.noreply.github.com",
+        "date": "2026-04-20T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "elenar"
+    }
+  },
+  {
+    "sha": "c6dfe84291a42dd32c6dd2c69644dbf2e6d198b0",
+    "html_url": "https://github.com/acme/httpcache/commit/c6dfe84291a42dd32c6dd2c69644dbf2e6d198b0",
+    "commit": {
+      "message": "Update README for retry settings",
+      "author": {
+        "name": "Marcus Trent",
+        "email": "marcus@acme.dev",
+        "date": "2026-05-02T09:30:00Z"
+      }
+    },
+    "author": {
+      "login": "mtrent"
+    }
+  },
+  {
+    "sha": "7f33f628bd41bf5d5c8c0e5ff1d4fc28fe5d675f",
+    "html_url": "https://github.com/acme/httpcache/commit/7f33f628bd41bf5d5c8c0e5ff1d4fc28fe5d675f",
+    "commit": {
+      "message": "Refactor session helpers",
+      "author": {
+        "name": "Leo Kim",
+        "email": "leo.k@acme.dev",
+        "date": "2026-05-10T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "leok"
+    }
+  },
+  {
+    "sha": "89030c312164be0d9bf7993727304285fd43e7b2",
+    "html_url": "https://github.com/acme/httpcache/commit/89030c312164be0d9bf7993727304285fd43e7b2",
+    "commit": {
+      "message": "Unit tests are passing across all supported Python versions in continuous integration.",
+      "author": {
+        "name": "Elena Rossi",
+        "email": "4410+elenar@users.noreply.github.com",
+        "date": "2026-05-15T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "elenar"
+    }
+  },
+  {
+    "sha": "e4ca6938d397153c92d1921e76e8b46763daa4fb",
+    "html_url": "https://github.com/acme/httpcache/commit/e4ca6938d397153c92d1921e76e8b46763daa4fb",
+    "commit": {
+      "message": "Add flaky health check test",
+      "author": {
+        "name": "Sam Verma",
+        "email": "sam@acme.dev",
+        "date": "2026-05-28T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "samv"
+    }
+  },
+  {
+    "sha": "0a47015da8e8008e547eca2ebc1f491db095edc8",
+    "html_url": "https://github.com/acme/httpcache/commit/0a47015da8e8008e547eca2ebc1f491db095edc8",
+    "commit": {
+      "message": "Move retry module to src/net",
+      "author": {
+        "name": "Leo Kim",
+        "email": "leo.k@acme.dev",
+        "date": "2026-06-12T11:30:00Z"
+      }
+    },
+    "author": {
+      "login": "leok"
+    }
+  },
+  {
+    "sha": "fe59233100d5a6ccc62119ad45d9e1bd68107f15",
+    "html_url": "https://github.com/acme/httpcache/commit/fe59233100d5a6ccc62119ad45d9e1bd68107f15",
+    "commit": {
+      "message": "Rename retry module after move",
+      "author": {
+        "name": "Priya Nair",
+        "email": "priya.nair@old-lab.edu",
+        "date": "2026-06-12T11:45:00Z"
+      }
+    },
+    "author": {
+      "login": "priya-n"
+    }
+  },
+  {
+    "sha": "28d9fdf29bf1d282e9e9c1ebcf3eb68ba786d7f6",
+    "html_url": "https://github.com/acme/httpcache/commit/28d9fdf29bf1d282e9e9c1ebcf3eb68ba786d7f6",
+    "commit": {
+      "message": "Do not retry health checks",
+      "author": {
+        "name": "Elena Rossi",
+        "email": "elena@acme.dev",
+        "date": "2026-06-18T10:30:00Z"
+      }
+    },
+    "author": {
+      "login": "elenar"
+    }
+  },
+  {
+    "sha": "9b7290bfa7f865eeca78db859400d13496243066",
+    "html_url": "https://github.com/acme/httpcache/commit/9b7290bfa7f865eeca78db859400d13496243066",
+    "commit": {
+      "message": "Bump version to 0.4.0",
+      "author": {
+        "name": "Marcus Trent",
+        "email": "marcus@acme.dev",
+        "date": "2026-06-25T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "mtrent"
+    }
+  },
+  {
+    "sha": "9327d1a986a0777d015317617ccabfd591bccdbe",
+    "html_url": "https://github.com/acme/httpcache/commit/9327d1a986a0777d015317617ccabfd591bccdbe",
+    "commit": {
+      "message": "Add connection pool metrics",
+      "author": {
+        "name": "Leo Kim",
+        "email": "leo.k@acme.dev",
+        "date": "2026-07-02T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "leok"
+    }
+  },
+  {
+    "sha": "85610b155ce87bf5b5c2b2c1d46fe1d3ec1ff25d",
+    "html_url": "https://github.com/acme/httpcache/commit/85610b155ce87bf5b5c2b2c1d46fe1d3ec1ff25d",
+    "commit": {
+      "message": "Cap total retry wait at ten seconds",
+      "author": {
+        "name": "Sam Verma",
+        "email": "sam@acme.dev",
+        "date": "2026-07-20T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "samv"
+    }
+  },
+  {
+    "sha": "2316e0948bc97d38924df8135e1bb06deada0f90",
+    "html_url": "https://github.com/acme/httpcache/commit/2316e0948bc97d38924df8135e1bb06deada0f90",
+    "commit": {
+      "message": "Handle empty response bodies",
+      "author": {
+        "name": "Elena Rossi",
+        "email": "elena@acme.dev",
+        "date": "2026-07-30T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "elenar"
+    }
+  },
+  {
+    "sha": "09928417d52adb966cb0cda7d3915fdf3fe204e9",
+    "html_url": "https://github.com/acme/httpcache/commit/09928417d52adb966cb0cda7d3915fdf3fe204e9",
+    "commit": {
+      "message": "Merge cap on total wait",
+      "author": {
+        "name": "Priya Nair",
+        "email": "priya@acme.dev",
+        "date": "2026-08-02T13:30:00Z"
+      }
+    },
+    "author": {
+      "login": "priya-n"
+    }
+  },
+  {
+    "sha": "c30b8b7640174d4f772e60b01e53e26f454f37ff",
+    "html_url": "https://github.com/acme/httpcache/commit/c30b8b7640174d4f772e60b01e53e26f454f37ff",
+    "commit": {
+      "message": "Pin documentation build tools",
+      "author": {
+        "name": "Marcus Trent",
+        "email": "marcus.t@gmail.com",
+        "date": "2026-08-10T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "mtrent"
+    }
+  },
+  {
+    "sha": "510402073c9e305fd061838888d5c4a1ce37d3fe",
+    "html_url": "https://github.com/acme/httpcache/commit/510402073c9e305fd061838888d5c4a1ce37d3fe",
+    "commit": {
+      "message": "Tidy retry module docstrings",
+      "author": {
+        "name": "Leo Kim",
+        "email": "leo.k@acme.dev",
+        "date": "2026-08-15T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "leok"
+    }
+  },
+  {
+    "sha": "3984bccfdb34434348fb1fa33e5d97ec0c65cd6c",
+    "html_url": "https://github.com/acme/httpcache/commit/3984bccfdb34434348fb1fa33e5d97ec0c65cd6c",
+    "commit": {
+      "message": "Refactor error types in retry module for cleaner stack traces",
+      "author": {
+        "name": "Priya Nair",
+        "email": "priya.nair@old-lab.edu",
+        "date": "2026-08-25T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "priya-n"
+    }
+  },
+  {
+    "sha": "59609c68446fece8b1472dd9f2b5924f5f7a4f33",
+    "html_url": "https://github.com/acme/httpcache/commit/59609c68446fece8b1472dd9f2b5924f5f7a4f33",
+    "commit": {
+      "message": "Add changelog entry",
+      "author": {
+        "name": "Sam Verma",
+        "email": "sam@acme.dev",
+        "date": "2026-09-01T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "samv"
+    }
+  },
+  {
+    "sha": "f42f9ce71288165c618f577cd8211fda2e2db526",
+    "html_url": "https://github.com/acme/httpcache/commit/f42f9ce71288165c618f577cd8211fda2e2db526",
+    "commit": {
+      "message": "Fix flaky timeout test",
+      "author": {
+        "name": "Elena Rossi",
+        "email": "elena@acme.dev",
+        "date": "2026-09-10T10:00:00Z"
+      }
+    },
+    "author": {
+      "login": "elenar"
+    }
+  },
+  {
+    "sha": "6b7d3ceaa0d3fdd349402417aad33c067705fb68",
+    "html_url": "https://github.com/acme/httpcache/commit/6b7d3ceaa0d3fdd349402417aad33c067705fb68",
+    "commit": {
+      "message": "Fix spelling in docs",
+      "author": {
+        "name": "Casey Dev",
+        "email": "casey@example.org",
+        "date": "2026-09-12T10:00:00Z"
+      }
+    },
+    "author": null
+  }
+]

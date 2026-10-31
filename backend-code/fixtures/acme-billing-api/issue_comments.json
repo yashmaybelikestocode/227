@@ -1,0 +1,42 @@
+[
+  {
+    "id": 3893001,
+    "body": "How about using floating point numbers for prices instead?",
+    "user": {
+      "login": "ravi-s"
+    },
+    "created_at": "2026-04-02T10:00:00Z",
+    "html_url": "https://github.com/acme/billing-api/pull/31#issuecomment-3893001",
+    "issue_url": "https://api.github.com/repos/acme/billing-api/issues/31"
+  },
+  {
+    "id": 3893002,
+    "body": "Floating point numbers are not worth it because rounding errors would break the monthly totals.",
+    "user": {
+      "login": "dana-p"
+    },
+    "created_at": "2026-04-02T10:20:00Z",
+    "html_url": "https://github.com/acme/billing-api/pull/31#issuecomment-3893002",
+    "issue_url": "https://api.github.com/repos/acme/billing-api/issues/31"
+  },
+  {
+    "id": 3893003,
+    "body": "Fair point, I am dropping that idea.",
+    "user": {
+      "login": "ravi-s"
+    },
+    "created_at": "2026-04-02T11:00:00Z",
+    "html_url": "https://github.com/acme/billing-api/pull/31#issuecomment-3893003",
+    "issue_url": "https://api.github.com/repos/acme/billing-api/issues/31"
+  },
+  {
+    "id": 3893004,
+    "body": "Agreed on integer cents. LGTM, merging.",
+    "user": {
+      "login": "mei-l"
+    },
+    "created_at": "2026-04-02T12:00:00Z",
+    "html_url": "https://github.com/acme/billing-api/pull/31#issuecomment-3893004",
+    "issue_url": "https://api.github.com/repos/acme/billing-api/issues/31"
+  }
+]

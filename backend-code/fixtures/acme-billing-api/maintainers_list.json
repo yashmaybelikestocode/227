@@ -1,0 +1,6 @@
+[
+  {
+    "idea": "Use floating point numbers for prices",
+    "reason": "Rounding errors would break the totals"
+  }
+]

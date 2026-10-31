@@ -1,0 +1,32 @@
+[
+  {
+    "sha": "2f22765d04931a078909145ca628d2264c852d7d",
+    "html_url": "https://github.com/acme/billing-api/commit/2f22765d04931a078909145ca628d2264c852d7d",
+    "commit": {
+      "message": "Store money as integer cents",
+      "author": {
+        "name": "Dana Park",
+        "email": "dana@acme.dev",
+        "date": "2026-04-02T08:00:00Z"
+      }
+    },
+    "author": {
+      "login": "dana-p"
+    }
+  },
+  {
+    "sha": "6b1f53303a732ccc8c6aae6640399827c15250e3",
+    "html_url": "https://github.com/acme/billing-api/commit/6b1f53303a732ccc8c6aae6640399827c15250e3",
+    "commit": {
+      "message": "Add rounding tests",
+      "author": {
+        "name": "Ravi S",
+        "email": "ravi@acme.dev",
+        "date": "2026-04-03T08:00:00Z"
+      }
+    },
+    "author": {
+      "login": "ravi-s"
+    }
+  }
+]

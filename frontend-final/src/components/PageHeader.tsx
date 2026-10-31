@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { DataSourceChip } from './DataSourceChip';
 
 interface PageHeaderProps {
   currentProject?: string;
@@ -57,6 +58,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           </svg>
           <span className="font-mono text-xs font-semibold">{displayProject}</span>
         </Link>
+        <DataSourceChip />
       </div>
 
       <div className="flex items-center gap-4 text-sm text-muted">

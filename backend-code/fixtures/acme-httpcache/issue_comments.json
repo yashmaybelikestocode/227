@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1893401,
+    "body": "We should wait longer after each failed try, starting at half a second and doubling each time.",
+    "user": {
+      "login": "priya-n"
+    },
+    "created_at": "2026-02-28T10:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893401",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/170"
+  },
+  {
+    "id": 1893404,
+    "body": "How about using an outside retry library like tenacity?",
+    "user": {
+      "login": "mtrent"
+    },
+    "created_at": "2026-03-01T09:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893404",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/170"
+  },
+  {
+    "id": 1893412,
+    "body": "An outside library adds an unnecessary external dependency for what is only about 20 lines of code.",
+    "user": {
+      "login": "priya-n"
+    },
+    "created_at": "2026-03-01T10:30:00Z",
+    "html_url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893412",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/170"
+  },
+  {
+    "id": 1893411,
+    "body": "Fair point, using an outside retry library would add too much overhead. I am dropping that idea.",
+    "user": {
+      "login": "mtrent"
+    },
+    "created_at": "2026-03-15T09:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893411",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/170"
+  },
+  {
+    "id": 1893402,
+    "body": "Should we use an outside retry library like tenacity instead of writing custom loop code?",
+    "user": {
+      "login": "mtrent"
+    },
+    "created_at": "2026-03-14T10:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893402",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/176"
+  },
+  {
+    "id": 1893405,
+    "body": "Let us wait until requests cluster in real production use before tuning jitter. Adding a small random delay can come later.",
+    "user": {
+      "login": "elenar"
+    },
+    "created_at": "2026-03-14T10:30:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893405",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/176"
+  },
+  {
+    "id": 1893410,
+    "body": "Agreed on the doubling. LGTM, merging this.",
+    "user": {
+      "login": "priya-n"
+    },
+    "created_at": "2026-03-14T11:30:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893410",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/176"
+  },
+  {
+    "id": 1893413,
+    "body": "We need a clear configuration design for limits and timeouts before adding settings.",
+    "user": {
+      "login": "samv"
+    },
+    "created_at": "2026-03-21T09:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/issues/181#issuecomment-1893413",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/181"
+  },
+  {
+    "id": 1893414,
+    "body": "Let us wait until we see requests cluster before we add it.",
+    "user": {
+      "login": "mtrent"
+    },
+    "created_at": "2026-04-11T09:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/issues/199#issuecomment-1893414",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/199"
+  },
+  {
+    "id": 1893408,
+    "body": "Fixed wait is a solid first step to handle quick network blips. I agree we should retry health checks too. LGTM, merging.",
+    "user": {
+      "login": "priya-n"
+    },
+    "created_at": "2026-01-09T09:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/118#issuecomment-1893408",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/118"
+  },
+  {
+    "id": 1893409,
+    "body": "+1 for retrying health checks so one blip does not drop a node.",
+    "user": {
+      "login": "leok"
+    },
+    "created_at": "2026-01-10T09:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/118#issuecomment-1893409",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/118"
+  },
+  {
+    "id": 1893415,
+    "body": "LGTM, merging.",
+    "user": {
+      "login": "leok"
+    },
+    "created_at": "2026-06-18T12:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/231#issuecomment-1893415",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/231"
+  },
+  {
+    "id": 1893416,
+    "body": "LGTM, merging.",
+    "user": {
+      "login": "priya-n"
+    },
+    "created_at": "2026-08-02T14:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/260#issuecomment-1893416",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/260"
+  },
+  {
+    "id": 1893421,
+    "body": "Unit tests are passing across all supported Python versions in continuous integration.",
+    "user": {
+      "login": "elenar"
+    },
+    "created_at": "2026-03-14T12:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893421",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/176"
+  },
+  {
+    "id": 1893422,
+    "body": "+1",
+    "user": {
+      "login": "samv"
+    },
+    "created_at": "2026-03-14T12:05:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893422",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/176"
+  },
+  {
+    "id": 1893423,
+    "body": "Coverage is 91.2%.",
+    "user": {
+      "login": "github-actions[bot]"
+    },
+    "created_at": "2026-03-14T12:06:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893423",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/176"
+  },
+  {
+    "id": 1893424,
+    "body": "👍",
+    "user": {
+      "login": "mtrent"
+    },
+    "created_at": "2026-08-02T14:30:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/260#issuecomment-1893424",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/260"
+  },
+  {
+    "id": 1893425,
+    "body": "> Documented the retry settings in the README.",
+    "user": {
+      "login": "elenar"
+    },
+    "created_at": "2026-05-02T11:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/205#issuecomment-1893425",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/205"
+  },
+  {
+    "id": 1893426,
+    "body": "Thanks!",
+    "user": {
+      "login": "leok"
+    },
+    "created_at": "2026-08-02T15:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/260#issuecomment-1893426",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/260"
+  },
+  {
+    "id": 1893427,
+    "body": "```\nnone\n```",
+    "user": {
+      "login": "samv"
+    },
+    "created_at": "2026-06-12T13:00:00Z",
+    "html_url": "https://github.com/acme/httpcache/pull/240#issuecomment-1893427",
+    "issue_url": "https://api.github.com/repos/acme/httpcache/issues/240"
+  }
+]

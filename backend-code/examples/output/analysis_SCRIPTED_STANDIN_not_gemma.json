@@ -1,0 +1,1878 @@
+{
+  "id": "httpcache-analysis",
+  "repo": "acme/httpcache",
+  "question": "Why do we retry failed requests?",
+  "range_label": "Last 6 months",
+  "summary": {
+    "steps": [
+      {
+        "key": "prs",
+        "label": "Fetching pull requests",
+        "count": 6,
+        "state": "done"
+      },
+      {
+        "key": "issues",
+        "label": "Fetching issues",
+        "count": 4,
+        "state": "done"
+      },
+      {
+        "key": "comments",
+        "label": "Fetching comments",
+        "count": 33,
+        "state": "done"
+      },
+      {
+        "key": "commits",
+        "label": "Fetching commits",
+        "count": 31,
+        "state": "done"
+      },
+      {
+        "key": "split",
+        "label": "Splitting discussions into statements",
+        "count": 73,
+        "state": "done"
+      },
+      {
+        "key": "people",
+        "label": "Merging people who use more than one name",
+        "count": 7,
+        "state": "done"
+      },
+      {
+        "key": "find",
+        "label": "Finding decisions",
+        "count": 11,
+        "state": "done"
+      },
+      {
+        "key": "group",
+        "label": "Grouping similar statements",
+        "count": 7,
+        "state": "done"
+      },
+      {
+        "key": "renames",
+        "label": "Following file renames",
+        "count": null,
+        "state": "skipped"
+      }
+    ],
+    "prs": 6,
+    "issues": 4,
+    "comments": 33,
+    "commits": 31,
+    "statements_used": 73,
+    "statements_left_out": 6,
+    "done": true,
+    "error": null
+  },
+  "short_answer": [
+    {
+      "text": "The team decided to go with \"Wait longer after each failed try\". This spreads out retry attempts naturally so recovered services have breathing room.",
+      "statement_ids": [
+        "pr:1000176.s2"
+      ]
+    },
+    {
+      "text": "The team decided to go with \"Fail health checks fast without retrying\". Health checks should fail fast rather than retrying so unhealthy nodes leave the pool immediately.",
+      "statement_ids": [
+        "pr:1000231.s1"
+      ]
+    },
+    {
+      "text": "The team decided to go with \"Cap total retry wait\". Caps backoff at 10 seconds total across all attempts so requests do not hang indefinitely.",
+      "statement_ids": [
+        "pr:1000260.s1"
+      ]
+    }
+  ],
+  "based_on": "Based on 6 comments in pull request #176 and 5 comments in #170.",
+  "decisions": [
+    {
+      "id": "d1",
+      "title": "Retry health checks too",
+      "status": "accepted",
+      "proposer_id": "marcus-t",
+      "reason": {
+        "text": "I also retry health checks so flaky nodes can recover.",
+        "statement_ids": [
+          "pr:1000118.s2"
+        ]
+      },
+      "statement_ids": [
+        "pr:1000118.s2",
+        "ic:1893408.s2",
+        "ic:1893408.s3",
+        "ic:1893409.s1"
+      ],
+      "grouped_count": 4,
+      "later_changes": [],
+      "confidence": "high"
+    },
+    {
+      "id": "d2",
+      "title": "Wait longer after each failed try",
+      "status": "accepted",
+      "proposer_id": "sam-v",
+      "reason": {
+        "text": "This spreads out retry attempts naturally so recovered services have breathing room.",
+        "statement_ids": [
+          "pr:1000176.s2"
+        ]
+      },
+      "statement_ids": [
+        "issue:2000170.s2",
+        "ic:1893401.s1",
+        "pr:1000176.s1",
+        "pr:1000176.s2",
+        "ic:1893410.s1",
+        "ic:1893410.s2"
+      ],
+      "grouped_count": 6,
+      "later_changes": [],
+      "confidence": "high"
+    },
+    {
+      "id": "d3",
+      "title": "Fail health checks fast without retrying",
+      "status": "accepted",
+      "proposer_id": "elena-r",
+      "reason": {
+        "text": "Health checks should fail fast rather than retrying so unhealthy nodes leave the pool immediately.",
+        "statement_ids": [
+          "pr:1000231.s1"
+        ]
+      },
+      "statement_ids": [
+        "pr:1000231.s1",
+        "ic:1893415.s1"
+      ],
+      "grouped_count": 2,
+      "later_changes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "d4",
+      "title": "Cap total retry wait",
+      "status": "accepted",
+      "proposer_id": "sam-v",
+      "reason": {
+        "text": "Caps backoff at 10 seconds total across all attempts so requests do not hang indefinitely.",
+        "statement_ids": [
+          "pr:1000260.s1"
+        ]
+      },
+      "statement_ids": [
+        "pr:1000260.s1",
+        "ic:1893416.s1"
+      ],
+      "grouped_count": 2,
+      "later_changes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "d5",
+      "title": "Use an outside retry library",
+      "status": "rejected",
+      "proposer_id": "marcus-t",
+      "reason": {
+        "text": "An outside library adds an unnecessary external dependency for what is only about 20 lines of code.",
+        "statement_ids": [
+          "ic:1893412.s1"
+        ]
+      },
+      "statement_ids": [
+        "ic:1893404.s1",
+        "ic:1893412.s1",
+        "ic:1893402.s1",
+        "rc:1893418.s1",
+        "rc:1893418.s2",
+        "ic:1893411.s1",
+        "ic:1893411.s2"
+      ],
+      "grouped_count": 7,
+      "later_changes": [],
+      "confidence": "high"
+    },
+    {
+      "id": "d6",
+      "title": "Add a small random delay",
+      "status": "deferred",
+      "proposer_id": "elena-r",
+      "reason": {
+        "text": "How about adding a small random delay so clients do not retry at the same moment?",
+        "statement_ids": [
+          "issue:2000199.s1"
+        ]
+      },
+      "statement_ids": [
+        "ic:1893405.s1",
+        "ic:1893405.s2",
+        "issue:2000199.s1",
+        "ic:1893414.s1"
+      ],
+      "grouped_count": 4,
+      "later_changes": [],
+      "confidence": "high"
+    },
+    {
+      "id": "d7",
+      "title": "Let users choose how many tries",
+      "status": "unresolved",
+      "proposer_id": "leo-k",
+      "reason": {
+        "text": "We should let users choose how many tries they want through configuration.",
+        "statement_ids": [
+          "rc:1893419.s1"
+        ]
+      },
+      "statement_ids": [
+        "rc:1893419.s1",
+        "issue:2000181.s1",
+        "ic:1893413.s1"
+      ],
+      "grouped_count": 3,
+      "later_changes": [],
+      "confidence": "high"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2026-01-09T08:00:00Z",
+      "pr_number": 118,
+      "text": {
+        "text": "I also retry health checks so flaky nodes can recover.",
+        "statement_ids": [
+          "pr:1000118.s2"
+        ]
+      },
+      "effect": null
+    },
+    {
+      "date": "2026-03-14T09:00:00Z",
+      "pr_number": 176,
+      "text": {
+        "text": "This spreads out retry attempts naturally so recovered services have breathing room.",
+        "statement_ids": [
+          "pr:1000176.s2"
+        ]
+      },
+      "effect": null
+    },
+    {
+      "date": "2026-06-18T11:00:00Z",
+      "pr_number": 231,
+      "text": {
+        "text": "Health checks should fail fast rather than retrying so unhealthy nodes leave the pool immediately.",
+        "statement_ids": [
+          "pr:1000231.s1"
+        ]
+      },
+      "effect": null
+    },
+    {
+      "date": "2026-08-02T13:00:00Z",
+      "pr_number": 260,
+      "text": {
+        "text": "Caps backoff at 10 seconds total across all attempts so requests do not hang indefinitely.",
+        "statement_ids": [
+          "pr:1000260.s1"
+        ]
+      },
+      "effect": null
+    }
+  ],
+  "confidence": "high",
+  "comments": [
+    {
+      "id": "pr:1000118",
+      "github_id": "1000118",
+      "person_id": "marcus-t",
+      "date": "2026-01-09T08:00:00Z",
+      "where": "PR #118 description",
+      "kind": "pr_comment",
+      "ref_number": 118,
+      "url": "https://github.com/acme/httpcache/pull/118",
+      "text": "Added a simple fixed-wait retry of 1 second on failed HTTP requests. I also retry health checks so flaky nodes can recover. A fixed wait keeps the code easy to read.",
+      "thread": "pr:118"
+    },
+    {
+      "id": "pr:1000176",
+      "github_id": "1000176",
+      "person_id": "priya-n",
+      "date": "2026-03-14T09:00:00Z",
+      "where": "PR #176 description",
+      "kind": "pr_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176",
+      "text": "We should wait longer after each failed try, starting at half a second and doubling each time. This spreads out retry attempts naturally so recovered services have breathing room.",
+      "thread": "pr:176"
+    },
+    {
+      "id": "pr:1000205",
+      "github_id": "1000205",
+      "person_id": "marcus-t",
+      "date": "2026-05-02T10:00:00Z",
+      "where": "PR #205 description",
+      "kind": "pr_comment",
+      "ref_number": 205,
+      "url": "https://github.com/acme/httpcache/pull/205",
+      "text": "Documented the retry settings in the README. No code changes.",
+      "thread": "pr:205"
+    },
+    {
+      "id": "pr:1000231",
+      "github_id": "1000231",
+      "person_id": "elena-r",
+      "date": "2026-06-18T11:00:00Z",
+      "where": "PR #231 description",
+      "kind": "pr_comment",
+      "ref_number": 231,
+      "url": "https://github.com/acme/httpcache/pull/231",
+      "text": "Health checks should fail fast rather than retrying so unhealthy nodes leave the pool immediately. This reverses part of the earlier health check retry.",
+      "thread": "pr:231"
+    },
+    {
+      "id": "pr:1000240",
+      "github_id": "1000240",
+      "person_id": "leo-k",
+      "date": "2026-06-12T12:00:00Z",
+      "where": "PR #240 description",
+      "kind": "pr_comment",
+      "ref_number": 240,
+      "url": "https://github.com/acme/httpcache/pull/240",
+      "text": "Moved the retry module to src/net so networking code lives together. No behavior changes.",
+      "thread": "pr:240"
+    },
+    {
+      "id": "pr:1000260",
+      "github_id": "1000260",
+      "person_id": "sam-v",
+      "date": "2026-08-02T13:00:00Z",
+      "where": "PR #260 description",
+      "kind": "pr_comment",
+      "ref_number": 260,
+      "url": "https://github.com/acme/httpcache/pull/260",
+      "text": "Caps backoff at 10 seconds total across all attempts so requests do not hang indefinitely.",
+      "thread": "pr:260"
+    },
+    {
+      "id": "issue:2000170",
+      "github_id": "2000170",
+      "person_id": "sam-v",
+      "date": "2026-02-28T08:30:00Z",
+      "where": "Issue #170 description",
+      "kind": "issue_comment",
+      "ref_number": 170,
+      "url": "https://github.com/acme/httpcache/issues/170",
+      "text": "During the staging outage all workers retried at the same moment and overwhelmed the database. We need the wait to grow after each failure.",
+      "thread": "issue:170"
+    },
+    {
+      "id": "issue:2000181",
+      "github_id": "2000181",
+      "person_id": "leo-k",
+      "date": "2026-03-20T09:00:00Z",
+      "where": "Issue #181 description",
+      "kind": "issue_comment",
+      "ref_number": 181,
+      "url": "https://github.com/acme/httpcache/issues/181",
+      "text": "Users should be able to choose how many tries they want.",
+      "thread": "issue:181"
+    },
+    {
+      "id": "issue:2000199",
+      "github_id": "2000199",
+      "person_id": "elena-r",
+      "date": "2026-04-10T09:00:00Z",
+      "where": "Issue #199 description",
+      "kind": "issue_comment",
+      "ref_number": 199,
+      "url": "https://github.com/acme/httpcache/issues/199",
+      "text": "How about adding a small random delay so clients do not retry at the same moment?",
+      "thread": "issue:199"
+    },
+    {
+      "id": "issue:2000222",
+      "github_id": "2000222",
+      "person_id": "elena-r",
+      "date": "2026-05-30T09:00:00Z",
+      "where": "Issue #222 description",
+      "kind": "issue_comment",
+      "ref_number": 222,
+      "url": "https://github.com/acme/httpcache/issues/222",
+      "text": "Health checks keep flapping during deploys. The retry may be making it worse.",
+      "thread": "issue:222"
+    },
+    {
+      "id": "ic:1893401",
+      "github_id": "1893401",
+      "person_id": "priya-n",
+      "date": "2026-02-28T10:00:00Z",
+      "where": "Issue #170 comment",
+      "kind": "issue_comment",
+      "ref_number": 170,
+      "url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893401",
+      "text": "We should wait longer after each failed try, starting at half a second and doubling each time.",
+      "thread": "issue:170"
+    },
+    {
+      "id": "ic:1893404",
+      "github_id": "1893404",
+      "person_id": "marcus-t",
+      "date": "2026-03-01T09:00:00Z",
+      "where": "Issue #170 comment",
+      "kind": "issue_comment",
+      "ref_number": 170,
+      "url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893404",
+      "text": "How about using an outside retry library like tenacity?",
+      "thread": "issue:170"
+    },
+    {
+      "id": "ic:1893412",
+      "github_id": "1893412",
+      "person_id": "priya-n",
+      "date": "2026-03-01T10:30:00Z",
+      "where": "Issue #170 comment",
+      "kind": "issue_comment",
+      "ref_number": 170,
+      "url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893412",
+      "text": "An outside library adds an unnecessary external dependency for what is only about 20 lines of code.",
+      "thread": "issue:170"
+    },
+    {
+      "id": "ic:1893411",
+      "github_id": "1893411",
+      "person_id": "marcus-t",
+      "date": "2026-03-15T09:00:00Z",
+      "where": "Issue #170 comment",
+      "kind": "issue_comment",
+      "ref_number": 170,
+      "url": "https://github.com/acme/httpcache/issues/170#issuecomment-1893411",
+      "text": "Fair point, using an outside retry library would add too much overhead. I am dropping that idea.",
+      "thread": "issue:170"
+    },
+    {
+      "id": "ic:1893402",
+      "github_id": "1893402",
+      "person_id": "marcus-t",
+      "date": "2026-03-14T10:00:00Z",
+      "where": "PR #176 comment",
+      "kind": "pr_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893402",
+      "text": "Should we use an outside retry library like tenacity instead of writing custom loop code?",
+      "thread": "pr:176"
+    },
+    {
+      "id": "ic:1893405",
+      "github_id": "1893405",
+      "person_id": "elena-r",
+      "date": "2026-03-14T10:30:00Z",
+      "where": "PR #176 comment",
+      "kind": "pr_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893405",
+      "text": "Let us wait until requests cluster in real production use before tuning jitter. Adding a small random delay can come later.",
+      "thread": "pr:176"
+    },
+    {
+      "id": "ic:1893410",
+      "github_id": "1893410",
+      "person_id": "priya-n",
+      "date": "2026-03-14T11:30:00Z",
+      "where": "PR #176 comment",
+      "kind": "pr_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893410",
+      "text": "Agreed on the doubling. LGTM, merging this.",
+      "thread": "pr:176"
+    },
+    {
+      "id": "ic:1893413",
+      "github_id": "1893413",
+      "person_id": "sam-v",
+      "date": "2026-03-21T09:00:00Z",
+      "where": "Issue #181 comment",
+      "kind": "issue_comment",
+      "ref_number": 181,
+      "url": "https://github.com/acme/httpcache/issues/181#issuecomment-1893413",
+      "text": "We need a clear configuration design for limits and timeouts before adding settings.",
+      "thread": "issue:181"
+    },
+    {
+      "id": "ic:1893414",
+      "github_id": "1893414",
+      "person_id": "marcus-t",
+      "date": "2026-04-11T09:00:00Z",
+      "where": "Issue #199 comment",
+      "kind": "issue_comment",
+      "ref_number": 199,
+      "url": "https://github.com/acme/httpcache/issues/199#issuecomment-1893414",
+      "text": "Let us wait until we see requests cluster before we add it.",
+      "thread": "issue:199"
+    },
+    {
+      "id": "ic:1893408",
+      "github_id": "1893408",
+      "person_id": "priya-n",
+      "date": "2026-01-09T09:00:00Z",
+      "where": "PR #118 comment",
+      "kind": "pr_comment",
+      "ref_number": 118,
+      "url": "https://github.com/acme/httpcache/pull/118#issuecomment-1893408",
+      "text": "Fixed wait is a solid first step to handle quick network blips. I agree we should retry health checks too. LGTM, merging.",
+      "thread": "pr:118"
+    },
+    {
+      "id": "ic:1893409",
+      "github_id": "1893409",
+      "person_id": "leo-k",
+      "date": "2026-01-10T09:00:00Z",
+      "where": "PR #118 comment",
+      "kind": "pr_comment",
+      "ref_number": 118,
+      "url": "https://github.com/acme/httpcache/pull/118#issuecomment-1893409",
+      "text": "+1 for retrying health checks so one blip does not drop a node.",
+      "thread": "pr:118"
+    },
+    {
+      "id": "ic:1893415",
+      "github_id": "1893415",
+      "person_id": "leo-k",
+      "date": "2026-06-18T12:00:00Z",
+      "where": "PR #231 comment",
+      "kind": "pr_comment",
+      "ref_number": 231,
+      "url": "https://github.com/acme/httpcache/pull/231#issuecomment-1893415",
+      "text": "LGTM, merging.",
+      "thread": "pr:231"
+    },
+    {
+      "id": "ic:1893416",
+      "github_id": "1893416",
+      "person_id": "priya-n",
+      "date": "2026-08-02T14:00:00Z",
+      "where": "PR #260 comment",
+      "kind": "pr_comment",
+      "ref_number": 260,
+      "url": "https://github.com/acme/httpcache/pull/260#issuecomment-1893416",
+      "text": "LGTM, merging.",
+      "thread": "pr:260"
+    },
+    {
+      "id": "ic:1893421",
+      "github_id": "1893421",
+      "person_id": "elena-r",
+      "date": "2026-03-14T12:00:00Z",
+      "where": "PR #176 comment",
+      "kind": "pr_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893421",
+      "text": "Unit tests are passing across all supported Python versions in continuous integration.",
+      "thread": "pr:176"
+    },
+    {
+      "id": "ic:1893422",
+      "github_id": "1893422",
+      "person_id": "sam-v",
+      "date": "2026-03-14T12:05:00Z",
+      "where": "PR #176 comment",
+      "kind": "pr_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893422",
+      "text": "+1",
+      "thread": "pr:176"
+    },
+    {
+      "id": "ic:1893423",
+      "github_id": "1893423",
+      "person_id": "github-actions-bot",
+      "date": "2026-03-14T12:06:00Z",
+      "where": "PR #176 comment",
+      "kind": "pr_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#issuecomment-1893423",
+      "text": "Coverage is 91.2%.",
+      "thread": "pr:176"
+    },
+    {
+      "id": "ic:1893424",
+      "github_id": "1893424",
+      "person_id": "marcus-t",
+      "date": "2026-08-02T14:30:00Z",
+      "where": "PR #260 comment",
+      "kind": "pr_comment",
+      "ref_number": 260,
+      "url": "https://github.com/acme/httpcache/pull/260#issuecomment-1893424",
+      "text": "👍",
+      "thread": "pr:260"
+    },
+    {
+      "id": "ic:1893425",
+      "github_id": "1893425",
+      "person_id": "elena-r",
+      "date": "2026-05-02T11:00:00Z",
+      "where": "PR #205 comment",
+      "kind": "pr_comment",
+      "ref_number": 205,
+      "url": "https://github.com/acme/httpcache/pull/205#issuecomment-1893425",
+      "text": "> Documented the retry settings in the README.",
+      "thread": "pr:205"
+    },
+    {
+      "id": "ic:1893426",
+      "github_id": "1893426",
+      "person_id": "leo-k",
+      "date": "2026-08-02T15:00:00Z",
+      "where": "PR #260 comment",
+      "kind": "pr_comment",
+      "ref_number": 260,
+      "url": "https://github.com/acme/httpcache/pull/260#issuecomment-1893426",
+      "text": "Thanks!",
+      "thread": "pr:260"
+    },
+    {
+      "id": "ic:1893427",
+      "github_id": "1893427",
+      "person_id": "sam-v",
+      "date": "2026-06-12T13:00:00Z",
+      "where": "PR #240 comment",
+      "kind": "pr_comment",
+      "ref_number": 240,
+      "url": "https://github.com/acme/httpcache/pull/240#issuecomment-1893427",
+      "text": "```\nnone\n```",
+      "thread": "pr:240"
+    },
+    {
+      "id": "rc:1893418",
+      "github_id": "1893418",
+      "person_id": "leo-k",
+      "date": "2026-03-14T10:45:00Z",
+      "where": "PR #176 review comment",
+      "kind": "review_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#discussion_r1893418",
+      "text": "-1 on the library. An outside retry library adds a dependency for about 20 lines of code.",
+      "thread": "pr:176"
+    },
+    {
+      "id": "rc:1893419",
+      "github_id": "1893419",
+      "person_id": "leo-k",
+      "date": "2026-03-14T11:00:00Z",
+      "where": "PR #176 review comment",
+      "kind": "review_comment",
+      "ref_number": 176,
+      "url": "https://github.com/acme/httpcache/pull/176#discussion_r1893419",
+      "text": "We should let users choose how many tries they want through configuration.",
+      "thread": "pr:176"
+    },
+    {
+      "id": "rc:1893420",
+      "github_id": "1893420",
+      "person_id": "priya-n",
+      "date": "2026-06-12T12:30:00Z",
+      "where": "PR #240 review comment",
+      "kind": "review_comment",
+      "ref_number": 240,
+      "url": "https://github.com/acme/httpcache/pull/240#discussion_r1893420",
+      "text": "Nice move. Keeping the module name stable helps imports.",
+      "thread": "pr:240"
+    },
+    {
+      "id": "commit:edfe208",
+      "github_id": "edfe208",
+      "person_id": "marcus-t",
+      "date": "2026-01-09T07:50:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/edfe2085c499d278c9df24a00bd93ccd92113aef",
+      "text": "Add fixed-wait retry",
+      "thread": "commit:edfe208"
+    },
+    {
+      "id": "commit:d09a1a5",
+      "github_id": "d09a1a5",
+      "person_id": "marcus-t",
+      "date": "2026-01-09T07:55:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/d09a1a5ac4d4bf3b9b2bd5a8647de2c5cb029dfa",
+      "text": "Retry health checks too",
+      "thread": "commit:d09a1a5"
+    },
+    {
+      "id": "commit:e40781b",
+      "github_id": "e40781b",
+      "person_id": "marcus-t",
+      "date": "2026-01-15T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/e40781ba968476ad142f462053c5603d25b4488e",
+      "text": "Document retry backoff configuration parameters in the project README",
+      "thread": "commit:e40781b"
+    },
+    {
+      "id": "commit:6b5a24f",
+      "github_id": "6b5a24f",
+      "person_id": "leo-k",
+      "date": "2026-01-20T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/6b5a24f9a3097c517866b301ea65b05b514690fc",
+      "text": "Unit tests for the retry loop",
+      "thread": "commit:6b5a24f"
+    },
+    {
+      "id": "commit:81bb940",
+      "github_id": "81bb940",
+      "person_id": "priya-n",
+      "date": "2026-02-02T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/81bb94047feb546e6ae83b78f11056ace3f82823",
+      "text": "Fix typo in retry log message",
+      "thread": "commit:81bb940"
+    },
+    {
+      "id": "commit:d5081ba",
+      "github_id": "d5081ba",
+      "person_id": "sam-v",
+      "date": "2026-02-10T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/d5081ba54bbd7644931cdbc28167d8fdcd3f1378",
+      "text": "Add staging benchmark script",
+      "thread": "commit:d5081ba"
+    },
+    {
+      "id": "commit:f7b5391",
+      "github_id": "f7b5391",
+      "person_id": "priya-n",
+      "date": "2026-03-13T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/f7b5391299e2e270d312fcdfb22f7615f9951ea8",
+      "text": "Use exponential backoff for retries",
+      "thread": "commit:f7b5391"
+    },
+    {
+      "id": "commit:69b43d9",
+      "github_id": "69b43d9",
+      "person_id": "priya-n",
+      "date": "2026-03-14T08:30:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/69b43d91e21930e2da34fba32b8959f321574653",
+      "text": "Add backoff tests",
+      "thread": "commit:69b43d9"
+    },
+    {
+      "id": "commit:11cd511",
+      "github_id": "11cd511",
+      "person_id": "elena-r",
+      "date": "2026-03-18T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/11cd511e38ec09feb080c0c831ba29beb39d6382",
+      "text": "Update CI matrix",
+      "thread": "commit:11cd511"
+    },
+    {
+      "id": "commit:47b24e1",
+      "github_id": "47b24e1",
+      "person_id": "leo-k",
+      "date": "2026-03-25T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/47b24e1158c0e5f40d49331ceee1c59d5947aa03",
+      "text": "Add retry count option draft",
+      "thread": "commit:47b24e1"
+    },
+    {
+      "id": "commit:5022428",
+      "github_id": "5022428",
+      "person_id": "priya-n",
+      "date": "2026-04-03T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/502242855f6fddeb55977d227ef8c85e4535cb12",
+      "text": "Earlier implementation was located at src/http_retry.py before moving to new module structure.",
+      "thread": "commit:5022428"
+    },
+    {
+      "id": "commit:0ce34cd",
+      "github_id": "0ce34cd",
+      "person_id": "sam-v",
+      "date": "2026-04-14T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/0ce34cd6fe615fff8451161cfd9faa2db3f12b02",
+      "text": "Run benchmarks against the staging cluster",
+      "thread": "commit:0ce34cd"
+    },
+    {
+      "id": "commit:9c56d8d",
+      "github_id": "9c56d8d",
+      "person_id": "elena-r",
+      "date": "2026-04-20T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/9c56d8d59eb13e5fec19d1189ea9971652d36b4f",
+      "text": "Pin test dependencies",
+      "thread": "commit:9c56d8d"
+    },
+    {
+      "id": "commit:c6dfe84",
+      "github_id": "c6dfe84",
+      "person_id": "marcus-t",
+      "date": "2026-05-02T09:30:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/c6dfe84291a42dd32c6dd2c69644dbf2e6d198b0",
+      "text": "Update README for retry settings",
+      "thread": "commit:c6dfe84"
+    },
+    {
+      "id": "commit:7f33f62",
+      "github_id": "7f33f62",
+      "person_id": "leo-k",
+      "date": "2026-05-10T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/7f33f628bd41bf5d5c8c0e5ff1d4fc28fe5d675f",
+      "text": "Refactor session helpers",
+      "thread": "commit:7f33f62"
+    },
+    {
+      "id": "commit:89030c3",
+      "github_id": "89030c3",
+      "person_id": "elena-r",
+      "date": "2026-05-15T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/89030c312164be0d9bf7993727304285fd43e7b2",
+      "text": "Unit tests are passing across all supported Python versions in continuous integration.",
+      "thread": "commit:89030c3"
+    },
+    {
+      "id": "commit:e4ca693",
+      "github_id": "e4ca693",
+      "person_id": "sam-v",
+      "date": "2026-05-28T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/e4ca6938d397153c92d1921e76e8b46763daa4fb",
+      "text": "Add flaky health check test",
+      "thread": "commit:e4ca693"
+    },
+    {
+      "id": "commit:0a47015",
+      "github_id": "0a47015",
+      "person_id": "leo-k",
+      "date": "2026-06-12T11:30:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/0a47015da8e8008e547eca2ebc1f491db095edc8",
+      "text": "Move retry module to src/net",
+      "thread": "commit:0a47015"
+    },
+    {
+      "id": "commit:fe59233",
+      "github_id": "fe59233",
+      "person_id": "priya-n",
+      "date": "2026-06-12T11:45:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/fe59233100d5a6ccc62119ad45d9e1bd68107f15",
+      "text": "Rename retry module after move",
+      "thread": "commit:fe59233"
+    },
+    {
+      "id": "commit:28d9fdf",
+      "github_id": "28d9fdf",
+      "person_id": "elena-r",
+      "date": "2026-06-18T10:30:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/28d9fdf29bf1d282e9e9c1ebcf3eb68ba786d7f6",
+      "text": "Do not retry health checks",
+      "thread": "commit:28d9fdf"
+    },
+    {
+      "id": "commit:9b7290b",
+      "github_id": "9b7290b",
+      "person_id": "marcus-t",
+      "date": "2026-06-25T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/9b7290bfa7f865eeca78db859400d13496243066",
+      "text": "Bump version to 0.4.0",
+      "thread": "commit:9b7290b"
+    },
+    {
+      "id": "commit:9327d1a",
+      "github_id": "9327d1a",
+      "person_id": "leo-k",
+      "date": "2026-07-02T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/9327d1a986a0777d015317617ccabfd591bccdbe",
+      "text": "Add connection pool metrics",
+      "thread": "commit:9327d1a"
+    },
+    {
+      "id": "commit:85610b1",
+      "github_id": "85610b1",
+      "person_id": "sam-v",
+      "date": "2026-07-20T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/85610b155ce87bf5b5c2b2c1d46fe1d3ec1ff25d",
+      "text": "Cap total retry wait at ten seconds",
+      "thread": "commit:85610b1"
+    },
+    {
+      "id": "commit:2316e09",
+      "github_id": "2316e09",
+      "person_id": "elena-r",
+      "date": "2026-07-30T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/2316e0948bc97d38924df8135e1bb06deada0f90",
+      "text": "Handle empty response bodies",
+      "thread": "commit:2316e09"
+    },
+    {
+      "id": "commit:0992841",
+      "github_id": "0992841",
+      "person_id": "priya-n",
+      "date": "2026-08-02T13:30:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/09928417d52adb966cb0cda7d3915fdf3fe204e9",
+      "text": "Merge cap on total wait",
+      "thread": "commit:0992841"
+    },
+    {
+      "id": "commit:c30b8b7",
+      "github_id": "c30b8b7",
+      "person_id": "marcus-t",
+      "date": "2026-08-10T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/c30b8b7640174d4f772e60b01e53e26f454f37ff",
+      "text": "Pin documentation build tools",
+      "thread": "commit:c30b8b7"
+    },
+    {
+      "id": "commit:5104020",
+      "github_id": "5104020",
+      "person_id": "leo-k",
+      "date": "2026-08-15T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/510402073c9e305fd061838888d5c4a1ce37d3fe",
+      "text": "Tidy retry module docstrings",
+      "thread": "commit:5104020"
+    },
+    {
+      "id": "commit:3984bcc",
+      "github_id": "3984bcc",
+      "person_id": "priya-n",
+      "date": "2026-08-25T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/3984bccfdb34434348fb1fa33e5d97ec0c65cd6c",
+      "text": "Refactor error types in retry module for cleaner stack traces",
+      "thread": "commit:3984bcc"
+    },
+    {
+      "id": "commit:59609c6",
+      "github_id": "59609c6",
+      "person_id": "sam-v",
+      "date": "2026-09-01T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/59609c68446fece8b1472dd9f2b5924f5f7a4f33",
+      "text": "Add changelog entry",
+      "thread": "commit:59609c6"
+    },
+    {
+      "id": "commit:f42f9ce",
+      "github_id": "f42f9ce",
+      "person_id": "elena-r",
+      "date": "2026-09-10T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/f42f9ce71288165c618f577cd8211fda2e2db526",
+      "text": "Fix flaky timeout test",
+      "thread": "commit:f42f9ce"
+    },
+    {
+      "id": "commit:6b7d3ce",
+      "github_id": "6b7d3ce",
+      "person_id": "casey-dev",
+      "date": "2026-09-12T10:00:00Z",
+      "where": "Commit message",
+      "kind": "commit_message",
+      "ref_number": null,
+      "url": "https://github.com/acme/httpcache/commit/6b7d3ceaa0d3fdd349402417aad33c067705fb68",
+      "text": "Fix spelling in docs",
+      "thread": "commit:6b7d3ce"
+    }
+  ],
+  "statements": [
+    {
+      "id": "pr:1000118.s1",
+      "comment_id": "pr:1000118",
+      "start": 0,
+      "end": 68,
+      "quote": "Added a simple fixed-wait retry of 1 second on failed HTTP requests.",
+      "decision_id": null
+    },
+    {
+      "id": "pr:1000118.s2",
+      "comment_id": "pr:1000118",
+      "start": 69,
+      "end": 123,
+      "quote": "I also retry health checks so flaky nodes can recover.",
+      "decision_id": "d1"
+    },
+    {
+      "id": "pr:1000118.s3",
+      "comment_id": "pr:1000118",
+      "start": 124,
+      "end": 165,
+      "quote": "A fixed wait keeps the code easy to read.",
+      "decision_id": null
+    },
+    {
+      "id": "pr:1000176.s1",
+      "comment_id": "pr:1000176",
+      "start": 0,
+      "end": 94,
+      "quote": "We should wait longer after each failed try, starting at half a second and doubling each time.",
+      "decision_id": "d2"
+    },
+    {
+      "id": "pr:1000176.s2",
+      "comment_id": "pr:1000176",
+      "start": 95,
+      "end": 179,
+      "quote": "This spreads out retry attempts naturally so recovered services have breathing room.",
+      "decision_id": "d2"
+    },
+    {
+      "id": "pr:1000205.s1",
+      "comment_id": "pr:1000205",
+      "start": 0,
+      "end": 44,
+      "quote": "Documented the retry settings in the README.",
+      "decision_id": null
+    },
+    {
+      "id": "pr:1000205.s2",
+      "comment_id": "pr:1000205",
+      "start": 45,
+      "end": 61,
+      "quote": "No code changes.",
+      "decision_id": null
+    },
+    {
+      "id": "pr:1000231.s1",
+      "comment_id": "pr:1000231",
+      "start": 0,
+      "end": 98,
+      "quote": "Health checks should fail fast rather than retrying so unhealthy nodes leave the pool immediately.",
+      "decision_id": "d3"
+    },
+    {
+      "id": "pr:1000231.s2",
+      "comment_id": "pr:1000231",
+      "start": 99,
+      "end": 152,
+      "quote": "This reverses part of the earlier health check retry.",
+      "decision_id": null
+    },
+    {
+      "id": "pr:1000240.s1",
+      "comment_id": "pr:1000240",
+      "start": 0,
+      "end": 68,
+      "quote": "Moved the retry module to src/net so networking code lives together.",
+      "decision_id": null
+    },
+    {
+      "id": "pr:1000240.s2",
+      "comment_id": "pr:1000240",
+      "start": 69,
+      "end": 89,
+      "quote": "No behavior changes.",
+      "decision_id": null
+    },
+    {
+      "id": "pr:1000260.s1",
+      "comment_id": "pr:1000260",
+      "start": 0,
+      "end": 90,
+      "quote": "Caps backoff at 10 seconds total across all attempts so requests do not hang indefinitely.",
+      "decision_id": "d4"
+    },
+    {
+      "id": "issue:2000170.s1",
+      "comment_id": "issue:2000170",
+      "start": 0,
+      "end": 94,
+      "quote": "During the staging outage all workers retried at the same moment and overwhelmed the database.",
+      "decision_id": null
+    },
+    {
+      "id": "issue:2000170.s2",
+      "comment_id": "issue:2000170",
+      "start": 95,
+      "end": 139,
+      "quote": "We need the wait to grow after each failure.",
+      "decision_id": "d2"
+    },
+    {
+      "id": "issue:2000181.s1",
+      "comment_id": "issue:2000181",
+      "start": 0,
+      "end": 56,
+      "quote": "Users should be able to choose how many tries they want.",
+      "decision_id": "d7"
+    },
+    {
+      "id": "issue:2000199.s1",
+      "comment_id": "issue:2000199",
+      "start": 0,
+      "end": 81,
+      "quote": "How about adding a small random delay so clients do not retry at the same moment?",
+      "decision_id": "d6"
+    },
+    {
+      "id": "issue:2000222.s1",
+      "comment_id": "issue:2000222",
+      "start": 0,
+      "end": 43,
+      "quote": "Health checks keep flapping during deploys.",
+      "decision_id": null
+    },
+    {
+      "id": "issue:2000222.s2",
+      "comment_id": "issue:2000222",
+      "start": 44,
+      "end": 77,
+      "quote": "The retry may be making it worse.",
+      "decision_id": null
+    },
+    {
+      "id": "ic:1893401.s1",
+      "comment_id": "ic:1893401",
+      "start": 0,
+      "end": 94,
+      "quote": "We should wait longer after each failed try, starting at half a second and doubling each time.",
+      "decision_id": "d2"
+    },
+    {
+      "id": "ic:1893404.s1",
+      "comment_id": "ic:1893404",
+      "start": 0,
+      "end": 55,
+      "quote": "How about using an outside retry library like tenacity?",
+      "decision_id": "d5"
+    },
+    {
+      "id": "ic:1893412.s1",
+      "comment_id": "ic:1893412",
+      "start": 0,
+      "end": 99,
+      "quote": "An outside library adds an unnecessary external dependency for what is only about 20 lines of code.",
+      "decision_id": "d5"
+    },
+    {
+      "id": "ic:1893411.s1",
+      "comment_id": "ic:1893411",
+      "start": 0,
+      "end": 71,
+      "quote": "Fair point, using an outside retry library would add too much overhead.",
+      "decision_id": "d5"
+    },
+    {
+      "id": "ic:1893411.s2",
+      "comment_id": "ic:1893411",
+      "start": 72,
+      "end": 96,
+      "quote": "I am dropping that idea.",
+      "decision_id": "d5"
+    },
+    {
+      "id": "ic:1893402.s1",
+      "comment_id": "ic:1893402",
+      "start": 0,
+      "end": 89,
+      "quote": "Should we use an outside retry library like tenacity instead of writing custom loop code?",
+      "decision_id": "d5"
+    },
+    {
+      "id": "ic:1893405.s1",
+      "comment_id": "ic:1893405",
+      "start": 0,
+      "end": 79,
+      "quote": "Let us wait until requests cluster in real production use before tuning jitter.",
+      "decision_id": "d6"
+    },
+    {
+      "id": "ic:1893405.s2",
+      "comment_id": "ic:1893405",
+      "start": 80,
+      "end": 123,
+      "quote": "Adding a small random delay can come later.",
+      "decision_id": "d6"
+    },
+    {
+      "id": "ic:1893410.s1",
+      "comment_id": "ic:1893410",
+      "start": 0,
+      "end": 23,
+      "quote": "Agreed on the doubling.",
+      "decision_id": "d2"
+    },
+    {
+      "id": "ic:1893410.s2",
+      "comment_id": "ic:1893410",
+      "start": 24,
+      "end": 43,
+      "quote": "LGTM, merging this.",
+      "decision_id": "d2"
+    },
+    {
+      "id": "ic:1893413.s1",
+      "comment_id": "ic:1893413",
+      "start": 0,
+      "end": 84,
+      "quote": "We need a clear configuration design for limits and timeouts before adding settings.",
+      "decision_id": "d7"
+    },
+    {
+      "id": "ic:1893414.s1",
+      "comment_id": "ic:1893414",
+      "start": 0,
+      "end": 59,
+      "quote": "Let us wait until we see requests cluster before we add it.",
+      "decision_id": "d6"
+    },
+    {
+      "id": "ic:1893408.s1",
+      "comment_id": "ic:1893408",
+      "start": 0,
+      "end": 63,
+      "quote": "Fixed wait is a solid first step to handle quick network blips.",
+      "decision_id": null
+    },
+    {
+      "id": "ic:1893408.s2",
+      "comment_id": "ic:1893408",
+      "start": 64,
+      "end": 106,
+      "quote": "I agree we should retry health checks too.",
+      "decision_id": "d1"
+    },
+    {
+      "id": "ic:1893408.s3",
+      "comment_id": "ic:1893408",
+      "start": 107,
+      "end": 121,
+      "quote": "LGTM, merging.",
+      "decision_id": "d1"
+    },
+    {
+      "id": "ic:1893409.s1",
+      "comment_id": "ic:1893409",
+      "start": 0,
+      "end": 63,
+      "quote": "+1 for retrying health checks so one blip does not drop a node.",
+      "decision_id": "d1"
+    },
+    {
+      "id": "ic:1893415.s1",
+      "comment_id": "ic:1893415",
+      "start": 0,
+      "end": 14,
+      "quote": "LGTM, merging.",
+      "decision_id": "d3"
+    },
+    {
+      "id": "ic:1893416.s1",
+      "comment_id": "ic:1893416",
+      "start": 0,
+      "end": 14,
+      "quote": "LGTM, merging.",
+      "decision_id": "d4"
+    },
+    {
+      "id": "ic:1893421.s1",
+      "comment_id": "ic:1893421",
+      "start": 0,
+      "end": 86,
+      "quote": "Unit tests are passing across all supported Python versions in continuous integration.",
+      "decision_id": null
+    },
+    {
+      "id": "rc:1893418.s1",
+      "comment_id": "rc:1893418",
+      "start": 0,
+      "end": 18,
+      "quote": "-1 on the library.",
+      "decision_id": "d5"
+    },
+    {
+      "id": "rc:1893418.s2",
+      "comment_id": "rc:1893418",
+      "start": 19,
+      "end": 89,
+      "quote": "An outside retry library adds a dependency for about 20 lines of code.",
+      "decision_id": "d5"
+    },
+    {
+      "id": "rc:1893419.s1",
+      "comment_id": "rc:1893419",
+      "start": 0,
+      "end": 74,
+      "quote": "We should let users choose how many tries they want through configuration.",
+      "decision_id": "d7"
+    },
+    {
+      "id": "rc:1893420.s1",
+      "comment_id": "rc:1893420",
+      "start": 0,
+      "end": 10,
+      "quote": "Nice move.",
+      "decision_id": null
+    },
+    {
+      "id": "rc:1893420.s2",
+      "comment_id": "rc:1893420",
+      "start": 11,
+      "end": 56,
+      "quote": "Keeping the module name stable helps imports.",
+      "decision_id": null
+    },
+    {
+      "id": "commit:edfe208.s1",
+      "comment_id": "commit:edfe208",
+      "start": 0,
+      "end": 20,
+      "quote": "Add fixed-wait retry",
+      "decision_id": null
+    },
+    {
+      "id": "commit:d09a1a5.s1",
+      "comment_id": "commit:d09a1a5",
+      "start": 0,
+      "end": 23,
+      "quote": "Retry health checks too",
+      "decision_id": null
+    },
+    {
+      "id": "commit:e40781b.s1",
+      "comment_id": "commit:e40781b",
+      "start": 0,
+      "end": 69,
+      "quote": "Document retry backoff configuration parameters in the project README",
+      "decision_id": null
+    },
+    {
+      "id": "commit:6b5a24f.s1",
+      "comment_id": "commit:6b5a24f",
+      "start": 0,
+      "end": 29,
+      "quote": "Unit tests for the retry loop",
+      "decision_id": null
+    },
+    {
+      "id": "commit:81bb940.s1",
+      "comment_id": "commit:81bb940",
+      "start": 0,
+      "end": 29,
+      "quote": "Fix typo in retry log message",
+      "decision_id": null
+    },
+    {
+      "id": "commit:d5081ba.s1",
+      "comment_id": "commit:d5081ba",
+      "start": 0,
+      "end": 28,
+      "quote": "Add staging benchmark script",
+      "decision_id": null
+    },
+    {
+      "id": "commit:f7b5391.s1",
+      "comment_id": "commit:f7b5391",
+      "start": 0,
+      "end": 35,
+      "quote": "Use exponential backoff for retries",
+      "decision_id": null
+    },
+    {
+      "id": "commit:69b43d9.s1",
+      "comment_id": "commit:69b43d9",
+      "start": 0,
+      "end": 17,
+      "quote": "Add backoff tests",
+      "decision_id": null
+    },
+    {
+      "id": "commit:11cd511.s1",
+      "comment_id": "commit:11cd511",
+      "start": 0,
+      "end": 16,
+      "quote": "Update CI matrix",
+      "decision_id": null
+    },
+    {
+      "id": "commit:47b24e1.s1",
+      "comment_id": "commit:47b24e1",
+      "start": 0,
+      "end": 28,
+      "quote": "Add retry count option draft",
+      "decision_id": null
+    },
+    {
+      "id": "commit:5022428.s1",
+      "comment_id": "commit:5022428",
+      "start": 0,
+      "end": 94,
+      "quote": "Earlier implementation was located at src/http_retry.py before moving to new module structure.",
+      "decision_id": null
+    },
+    {
+      "id": "commit:0ce34cd.s1",
+      "comment_id": "commit:0ce34cd",
+      "start": 0,
+      "end": 42,
+      "quote": "Run benchmarks against the staging cluster",
+      "decision_id": null
+    },
+    {
+      "id": "commit:9c56d8d.s1",
+      "comment_id": "commit:9c56d8d",
+      "start": 0,
+      "end": 21,
+      "quote": "Pin test dependencies",
+      "decision_id": null
+    },
+    {
+      "id": "commit:c6dfe84.s1",
+      "comment_id": "commit:c6dfe84",
+      "start": 0,
+      "end": 32,
+      "quote": "Update README for retry settings",
+      "decision_id": null
+    },
+    {
+      "id": "commit:7f33f62.s1",
+      "comment_id": "commit:7f33f62",
+      "start": 0,
+      "end": 24,
+      "quote": "Refactor session helpers",
+      "decision_id": null
+    },
+    {
+      "id": "commit:89030c3.s1",
+      "comment_id": "commit:89030c3",
+      "start": 0,
+      "end": 86,
+      "quote": "Unit tests are passing across all supported Python versions in continuous integration.",
+      "decision_id": null
+    },
+    {
+      "id": "commit:e4ca693.s1",
+      "comment_id": "commit:e4ca693",
+      "start": 0,
+      "end": 27,
+      "quote": "Add flaky health check test",
+      "decision_id": null
+    },
+    {
+      "id": "commit:0a47015.s1",
+      "comment_id": "commit:0a47015",
+      "start": 0,
+      "end": 28,
+      "quote": "Move retry module to src/net",
+      "decision_id": null
+    },
+    {
+      "id": "commit:fe59233.s1",
+      "comment_id": "commit:fe59233",
+      "start": 0,
+      "end": 30,
+      "quote": "Rename retry module after move",
+      "decision_id": null
+    },
+    {
+      "id": "commit:28d9fdf.s1",
+      "comment_id": "commit:28d9fdf",
+      "start": 0,
+      "end": 26,
+      "quote": "Do not retry health checks",
+      "decision_id": null
+    },
+    {
+      "id": "commit:9b7290b.s1",
+      "comment_id": "commit:9b7290b",
+      "start": 0,
+      "end": 21,
+      "quote": "Bump version to 0.4.0",
+      "decision_id": null
+    },
+    {
+      "id": "commit:9327d1a.s1",
+      "comment_id": "commit:9327d1a",
+      "start": 0,
+      "end": 27,
+      "quote": "Add connection pool metrics",
+      "decision_id": null
+    },
+    {
+      "id": "commit:85610b1.s1",
+      "comment_id": "commit:85610b1",
+      "start": 0,
+      "end": 35,
+      "quote": "Cap total retry wait at ten seconds",
+      "decision_id": null
+    },
+    {
+      "id": "commit:2316e09.s1",
+      "comment_id": "commit:2316e09",
+      "start": 0,
+      "end": 28,
+      "quote": "Handle empty response bodies",
+      "decision_id": null
+    },
+    {
+      "id": "commit:0992841.s1",
+      "comment_id": "commit:0992841",
+      "start": 0,
+      "end": 23,
+      "quote": "Merge cap on total wait",
+      "decision_id": null
+    },
+    {
+      "id": "commit:c30b8b7.s1",
+      "comment_id": "commit:c30b8b7",
+      "start": 0,
+      "end": 29,
+      "quote": "Pin documentation build tools",
+      "decision_id": null
+    },
+    {
+      "id": "commit:5104020.s1",
+      "comment_id": "commit:5104020",
+      "start": 0,
+      "end": 28,
+      "quote": "Tidy retry module docstrings",
+      "decision_id": null
+    },
+    {
+      "id": "commit:3984bcc.s1",
+      "comment_id": "commit:3984bcc",
+      "start": 0,
+      "end": 61,
+      "quote": "Refactor error types in retry module for cleaner stack traces",
+      "decision_id": null
+    },
+    {
+      "id": "commit:59609c6.s1",
+      "comment_id": "commit:59609c6",
+      "start": 0,
+      "end": 19,
+      "quote": "Add changelog entry",
+      "decision_id": null
+    },
+    {
+      "id": "commit:f42f9ce.s1",
+      "comment_id": "commit:f42f9ce",
+      "start": 0,
+      "end": 22,
+      "quote": "Fix flaky timeout test",
+      "decision_id": null
+    },
+    {
+      "id": "commit:6b7d3ce.s1",
+      "comment_id": "commit:6b7d3ce",
+      "start": 0,
+      "end": 20,
+      "quote": "Fix spelling in docs",
+      "decision_id": null
+    }
+  ],
+  "left_out": [
+    {
+      "comment_id": "ic:1893422",
+      "reason": "The comment was only a reaction"
+    },
+    {
+      "comment_id": "ic:1893423",
+      "reason": "The comment was written by a bot"
+    },
+    {
+      "comment_id": "ic:1893424",
+      "reason": "The comment was only a reaction"
+    },
+    {
+      "comment_id": "ic:1893425",
+      "reason": "No exact quote could be found"
+    },
+    {
+      "comment_id": "ic:1893426",
+      "reason": "The comment was only a reaction"
+    },
+    {
+      "comment_id": "ic:1893427",
+      "reason": "No exact quote could be found"
+    }
+  ],
+  "people": [
+    {
+      "id": "priya-n",
+      "display_name": "Priya N.",
+      "identities": [
+        {
+          "kind": "commit_email",
+          "value": "priya.nair@old-lab.edu",
+          "merged_because": "Same commit as the GitHub account",
+          "label": null
+        },
+        {
+          "kind": "commit_email",
+          "value": "priya@acme.dev",
+          "merged_because": "Same commit as the GitHub account",
+          "label": null
+        },
+        {
+          "kind": "github_login",
+          "value": "priya-n",
+          "merged_because": "GitHub account used in comments and commits",
+          "label": null
+        },
+        {
+          "kind": "other_handle",
+          "value": "Discourse: priya_n",
+          "merged_because": "Listed in the project's identity file",
+          "label": "Discourse"
+        }
+      ],
+      "commits": 7,
+      "comments": 7,
+      "first_at": "2026-01-09T09:00:00Z",
+      "last_at": "2026-08-25T10:00:00Z"
+    },
+    {
+      "id": "leo-k",
+      "display_name": "Leo K.",
+      "identities": [
+        {
+          "kind": "commit_email",
+          "value": "leo.k@acme.dev",
+          "merged_because": "Same commit as the GitHub account",
+          "label": null
+        },
+        {
+          "kind": "github_login",
+          "value": "leok",
+          "merged_because": "GitHub account used in comments and commits",
+          "label": null
+        },
+        {
+          "kind": "other_handle",
+          "value": "Slack: @leok",
+          "merged_because": "Listed in the project's identity file",
+          "label": "Slack"
+        }
+      ],
+      "commits": 6,
+      "comments": 7,
+      "first_at": "2026-01-10T09:00:00Z",
+      "last_at": "2026-08-15T10:00:00Z"
+    },
+    {
+      "id": "marcus-t",
+      "display_name": "Marcus T.",
+      "identities": [
+        {
+          "kind": "commit_email",
+          "value": "marcus.t@gmail.com",
+          "merged_because": "Same commit as the GitHub account",
+          "label": null
+        },
+        {
+          "kind": "commit_email",
+          "value": "marcus@acme.dev",
+          "merged_because": "Same commit as the GitHub account",
+          "label": null
+        },
+        {
+          "kind": "github_login",
+          "value": "mtrent",
+          "merged_because": "GitHub account used in comments and commits",
+          "label": null
+        },
+        {
+          "kind": "other_handle",
+          "value": "Mailing list: M. Trent",
+          "merged_because": "Listed in the project's identity file",
+          "label": "Mailing list"
+        }
+      ],
+      "commits": 6,
+      "comments": 7,
+      "first_at": "2026-01-09T07:50:00Z",
+      "last_at": "2026-08-10T10:00:00Z"
+    },
+    {
+      "id": "elena-r",
+      "display_name": "Elena R.",
+      "identities": [
+        {
+          "kind": "commit_email",
+          "value": "4410+elenar@users.noreply.github.com",
+          "merged_because": "GitHub private email for this account",
+          "label": null
+        },
+        {
+          "kind": "commit_email",
+          "value": "elena@acme.dev",
+          "merged_because": "Same commit as the GitHub account",
+          "label": null
+        },
+        {
+          "kind": "github_login",
+          "value": "elenar",
+          "merged_because": "GitHub account used in comments and commits",
+          "label": null
+        },
+        {
+          "kind": "other_handle",
+          "value": "IRC: elena_r",
+          "merged_because": "Listed in the project's identity file",
+          "label": "IRC"
+        }
+      ],
+      "commits": 6,
+      "comments": 6,
+      "first_at": "2026-03-14T10:30:00Z",
+      "last_at": "2026-09-10T10:00:00Z"
+    },
+    {
+      "id": "sam-v",
+      "display_name": "Sam V.",
+      "identities": [
+        {
+          "kind": "commit_email",
+          "value": "sam@acme.dev",
+          "merged_because": "Same commit as the GitHub account",
+          "label": null
+        },
+        {
+          "kind": "github_login",
+          "value": "samv",
+          "merged_because": "GitHub account used in comments and commits",
+          "label": null
+        },
+        {
+          "kind": "other_handle",
+          "value": "Matrix: @sam_v",
+          "merged_because": "Listed in the project's identity file",
+          "label": "Matrix"
+        }
+      ],
+      "commits": 5,
+      "comments": 5,
+      "first_at": "2026-02-10T10:00:00Z",
+      "last_at": "2026-09-01T10:00:00Z"
+    },
+    {
+      "id": "casey-dev",
+      "display_name": "Casey Dev",
+      "identities": [
+        {
+          "kind": "commit_email",
+          "value": "casey@example.org",
+          "merged_because": "Seen on commits",
+          "label": null
+        }
+      ],
+      "commits": 1,
+      "comments": 0,
+      "first_at": "2026-09-12T10:00:00Z",
+      "last_at": "2026-09-12T10:00:00Z"
+    },
+    {
+      "id": "github-actions-bot",
+      "display_name": "github-actions[bot]",
+      "identities": [
+        {
+          "kind": "github_login",
+          "value": "github-actions[bot]",
+          "merged_because": "GitHub account used in comments and commits",
+          "label": null
+        }
+      ],
+      "commits": 0,
+      "comments": 1,
+      "first_at": "2026-03-14T12:06:00Z",
+      "last_at": "2026-03-14T12:06:00Z"
+    }
+  ],
+  "stats": {
+    "model": "scripted-test-model",
+    "mode": "test",
+    "live_calls": 0,
+    "cache_hits": 0,
+    "windows_total": 11,
+    "windows_sent_to_model": 8,
+    "verifier": {
+      "produced": 47,
+      "verified": 47,
+      "dropped": 0,
+      "dropped_by_gate": {}
+    }
+  },
+  "NOTE": "SCRIPTED STAND-IN OUTPUT, NOT GEMMA. Produced by tests/rule_llm.py (keyword rules) so the folder is not empty. Run scripts/make_examples.sh with Ollama to replace it with real Gemma 4 output."
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getEvalResult, getAnalysis } from '../api';
+import { getEvalResult, getAnalysis, sealFindings } from '../api';
+import type { SealedFindings } from '../api';
 import type { EvalResult, Analysis } from '../types';
 import { PageHeader } from '../components/PageHeader';
 import { ScoreCard } from '../components/ScoreCard';
@@ -7,6 +8,7 @@ import { SourceChip } from '../components/SourceChip';
 import { Skeleton, EmptyState, ErrorState } from '../components/Common';
 
 export const EvaluatePage: React.FC = () => {
+  const [sealed, setSealed] = useState<SealedFindings | null>(null);
   const [evalResult, setEvalResult] = useState<EvalResult | null>(null);
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [loading, setLoading] = useState(true);
@@ -14,16 +16,19 @@ export const EvaluatePage: React.FC = () => {
 
   // Whether user has pressed "Open the maintainers' list"
   const [revealed, setRevealed] = useState(false);
+  const [revealing, setRevealing] = useState(false);
+  const [revealError, setRevealError] = useState<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
     setLoading(true);
     setError(null);
 
-    Promise.all([getEvalResult('demo'), getAnalysis('demo')])
-      .then(([res, an]) => {
+    // Seal Cypher's findings first; the maintainers' list is opened only on request
+    Promise.all([sealFindings('demo'), getAnalysis('demo')])
+      .then(([seal, an]) => {
         if (!mounted) return;
-        setEvalResult(res);
+        setSealed(seal);
         setAnalysis(an);
         setLoading(false);
       })
@@ -37,6 +42,20 @@ export const EvaluatePage: React.FC = () => {
       mounted = false;
     };
   }, []);
+
+  const openMaintainersList = () => {
+    setRevealing(true);
+    setRevealError(null);
+    getEvalResult('demo')
+      .then((res) => {
+        setEvalResult(res);
+        setRevealed(true);
+      })
+      .catch((err) => {
+        setRevealError(err?.message || "Could not open the maintainers' list");
+      })
+      .finally(() => setRevealing(false));
+  };
 
   if (loading) {
     return (
@@ -63,7 +82,7 @@ export const EvaluatePage: React.FC = () => {
     );
   }
 
-  if (!evalResult) {
+  if (!sealed) {
     return (
       <div className="space-y-6">
         <PageHeader title="Blind test against maintainers' list" />
@@ -93,12 +112,12 @@ export const EvaluatePage: React.FC = () => {
             1
           </span>
           <h2 className="font-serif font-bold text-base text-ink">
-            Sealed maintainers&apos; list
+            Cypher&apos;s sealed findings
           </h2>
         </div>
 
         <p className="text-xs text-muted leading-relaxed">
-          The ground truth list was created and cryptographically locked prior to running Cypher&apos;s extraction pipeline.
+          Cypher&apos;s findings were saved and cryptographically locked before the maintainers&apos; list was opened.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
@@ -106,14 +125,14 @@ export const EvaluatePage: React.FC = () => {
             <span className="text-muted block text-[10px] uppercase tracking-wider font-semibold">
               Timestamp locked
             </span>
-            <span className="font-mono text-ink font-medium">{evalResult.saved_at}</span>
+            <span className="font-mono text-ink font-medium">{sealed.saved_at}</span>
           </div>
           <div className="p-3 bg-surface border border-line rounded-btn">
             <span className="text-muted block text-[10px] uppercase tracking-wider font-semibold">
               Cryptographic fingerprint
             </span>
-            <span className="font-mono text-ink font-medium break-all" title={evalResult.fingerprint}>
-              {evalResult.fingerprint}
+            <span className="font-mono text-ink font-medium break-all" title={sealed.fingerprint}>
+              {sealed.fingerprint}
             </span>
           </div>
         </div>
@@ -130,7 +149,15 @@ export const EvaluatePage: React.FC = () => {
           </h2>
         </div>
 
-        {!revealed ? (
+        {revealError ? (
+          <ErrorState
+            title="Could not open the maintainers' list"
+            message={revealError}
+            onRetry={openMaintainersList}
+          />
+        ) : revealing ? (
+          <Skeleton className="h-40 w-full" />
+        ) : !revealed || !evalResult ? (
           <div className="py-8 text-center space-y-4">
             <p className="text-sm text-muted max-w-md mx-auto">
               Ready to verify Cypher against the maintainers&apos; sealed baseline? Click below to unseal and calculate score.
@@ -138,7 +165,7 @@ export const EvaluatePage: React.FC = () => {
             <button
               type="button"
               data-testid="btn-open-maintainers-list"
-              onClick={() => setRevealed(true)}
+              onClick={openMaintainersList}
               className="px-6 py-3 bg-accent text-white font-semibold text-sm rounded-btn shadow hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Open the maintainers&apos; list

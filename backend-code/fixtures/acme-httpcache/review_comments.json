@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1893418,
+    "body": "-1 on the library. An outside retry library adds a dependency for about 20 lines of code.",
+    "user": {
+      "login": "leok"
+    },
+    "created_at": "2026-03-14T10:45:00Z",
+    "path": "src/http_retry.py",
+    "line": 11,
+    "html_url": "https://github.com/acme/httpcache/pull/176#discussion_r1893418",
+    "pull_request_url": "https://api.github.com/repos/acme/httpcache/pulls/176"
+  },
+  {
+    "id": 1893419,
+    "body": "We should let users choose how many tries they want through configuration.",
+    "user": {
+      "login": "leok"
+    },
+    "created_at": "2026-03-14T11:00:00Z",
+    "path": "src/http_retry.py",
+    "line": 5,
+    "html_url": "https://github.com/acme/httpcache/pull/176#discussion_r1893419",
+    "pull_request_url": "https://api.github.com/repos/acme/httpcache/pulls/176"
+  },
+  {
+    "id": 1893420,
+    "body": "Nice move. Keeping the module name stable helps imports.",
+    "user": {
+      "login": "priya-n"
+    },
+    "created_at": "2026-06-12T12:30:00Z",
+    "path": "src/net/retry.py",
+    "line": 1,
+    "html_url": "https://github.com/acme/httpcache/pull/240#discussion_r1893420",
+    "pull_request_url": "https://api.github.com/repos/acme/httpcache/pulls/240"
+  }
+]
