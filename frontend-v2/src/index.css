@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ivory: #FBFAF0;
+  --color-surface: #FFFFFA;
+  --color-mint: #D6F0E7;
+  --color-mint-soft: #EAF7F1;
+  --color-mint-deep: #A8DCC8;
+  --color-ink: #14302A;
+  --color-accent: #1F5E4E;
+  --color-muted: #4F6B63;
+  --color-line: #D9E3D8;
+  --color-brick: #A8432F;
+  --color-amber: #F0D8A0;
+  --color-amber-text: #5A4310;
+  --color-neutral: #E4EAE5;
+}
+
+body {
+  background-color: #FBFAF0;
+  color: #14302A;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom interactive focus rings: 2px accent outline with 2px offset */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #1F5E4E;
+  outline-offset: 2px;
+}
+
+/* Evidence sentence highlighting: mint-deep at about 80% opacity behind ink text, with a 3px accent bar on the left */
+.evidence-highlight {
+  background-color: rgba(168, 220, 200, 0.8);
+  color: #14302A;
+  border-left: 3px solid #1F5E4E;
+  padding-left: 6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+}
+
+/* Print view CSS: hides sidebar, header, and buttons; prints cleanly in black on white */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  .print-clean {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}

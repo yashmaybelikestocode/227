@@ -1,0 +1,68 @@
+import { Hotspot } from '../types';
+
+export const mockHotspots: Hotspot[] = [
+  {
+    file: 'src/retry.py',
+    decided_against: 4,
+    undone_later: 2,
+    adjusted_later: 3,
+    still_open: 1,
+    last_discussed: '2 Aug 2026',
+  },
+  {
+    file: 'src/session.py',
+    decided_against: 3,
+    undone_later: 1,
+    adjusted_later: 2,
+    still_open: 2,
+    last_discussed: '21 Jul 2026',
+  },
+  {
+    file: 'src/cache.py',
+    decided_against: 5,
+    undone_later: 3,
+    adjusted_later: 1,
+    still_open: 0,
+    last_discussed: '15 Jul 2026',
+  },
+  {
+    file: 'src/config.py',
+    decided_against: 1,
+    undone_later: 0,
+    adjusted_later: 4,
+    still_open: 3,
+    last_discussed: '28 Jun 2026',
+  },
+  {
+    file: 'src/errors.py',
+    decided_against: 2,
+    undone_later: 1,
+    adjusted_later: 1,
+    still_open: 1,
+    last_discussed: '27 Feb 2026',
+  },
+  {
+    file: 'src/pool.py',
+    decided_against: 3,
+    undone_later: 2,
+    adjusted_later: 0,
+    still_open: 2,
+    last_discussed: '19 May 2026',
+  },
+  {
+    file: 'src/headers.py',
+    decided_against: 1,
+    undone_later: 0,
+    adjusted_later: 1,
+    still_open: 0,
+    last_discussed: '14 Feb 2026',
+  },
+  {
+    file: 'src/utils.py',
+    decided_against: 0,
+    undone_later: 1,
+    adjusted_later: 2,
+    still_open: 1,
+    last_discussed: '10 Jan 2026',
+  },
+];
