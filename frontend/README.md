@@ -1,4 +1,4 @@
-# Cypher — Final Frontend
+# Cypher — Frontend
 
 > Understand **WHY** code is the way it is, and **WHO** did **WHAT** and **WHEN**.
 
@@ -32,7 +32,7 @@ For one repository, Cypher fetches pull requests, issues, comments, and commits 
 ### Installation & Commands
 
 ```bash
-cd frontend-final
+cd frontend
 
 # Install dependencies
 npm install
@@ -51,11 +51,11 @@ npm run build
 
 ## Switching From Mock Data to Real Backend
 
-All backend interactions are abstracted behind a single interface in [`src/api.ts`](file:///Users/yash/frontend-final/src/api.ts).
+All backend interactions are abstracted behind a single interface in [`src/api.ts`](file:///Users/yash/frontend/src/api.ts).
 
 To switch to a live Python backend running on `/api/*`:
 
-1. Open [`src/api.ts`](file:///Users/yash/frontend-final/src/api.ts).
+1. Open [`src/api.ts`](file:///Users/yash/frontend/src/api.ts).
 2. Set the `USE_MOCK` boolean flag to `false`:
    ```ts
    export const USE_MOCK = false;
@@ -67,7 +67,7 @@ To switch to a live Python backend running on `/api/*`:
 ## Folder Structure
 
 ```
-frontend-final/
+frontend/
 ├── index.html                 # HTML shell and metadata
 ├── package.json               # Dependencies and test script
 ├── tailwind.config.js         # Color theme (ivory, mint, accent, brick, amber)
